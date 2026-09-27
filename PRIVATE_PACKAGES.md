@@ -10,7 +10,8 @@ For a Windows development PC, create a GitHub personal access token **(classic)*
 $env:GH_PACKAGES_TOKEN = Read-Host 'GitHub classic PAT (read:packages)'
 dotnet nuget add source 'https://nuget.pkg.github.com/lwxlabs/index.json' `
   --name lwxlabs-github --username YOUR_GITHUB_USERNAME `
-  --password $env:GH_PACKAGES_TOKEN
+  --password $env:GH_PACKAGES_TOKEN `
+  --configfile "$env:APPDATA\NuGet\NuGet.Config"
 Remove-Item Env:GH_PACKAGES_TOKEN
 ```
 

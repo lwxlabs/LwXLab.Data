@@ -22,14 +22,24 @@ jobs:
           GH_PACKAGES_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
+          consumer="$RUNNER_TEMP/lwx-private-consumer"
+          dotnet new console --framework net10.0 --output "$consumer"
+          cat > "$consumer/NuGet.Config" <<'EOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <configuration>
+            <packageSources>
+              <clear />
+              <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
+            </packageSources>
+          </configuration>
+          EOF
           dotnet nuget add source \
             --username "${{ github.actor }}" \
             --password "$GH_PACKAGES_TOKEN" \
             --store-password-in-clear-text \
             --name lwxlabs-github \
+            --configfile "$consumer/NuGet.Config" \
             "https://nuget.pkg.github.com/lwxlabs/index.json"
-          consumer="$RUNNER_TEMP/lwx-private-consumer"
-          dotnet new console --framework net10.0 --output "$consumer"
           cd "$consumer"
           dotnet add package LwXLab.Data.Sqlite --version 0.1.0-preview.3
           printf '%s\n' 'Console.WriteLine(LwXLab.Data.DatabaseIdentifier.Validate("PrivateFeed"));' > "$consumer/Program.cs"
