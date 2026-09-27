@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <PackageId>LwXLab.Data.OpenTelemetry</PackageId>
+    <Description>Optional OpenTelemetry registration helpers for LwXLab.Data metrics and activities.</Description>
+    <PackageTags>opentelemetry;metrics;tracing;database;observability</PackageTags>
+  </PropertyGroup>
+  <ItemGroup><ProjectReference Include="../LwXLab.Data.Diagnostics/LwXLab.Data.Diagnostics.csproj" /></ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="OpenTelemetry" Version="1.19.1" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.19.1" />
+  </ItemGroup>
+</Project>

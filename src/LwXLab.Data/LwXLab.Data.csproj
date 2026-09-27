@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net8.0;net9.0;net10.0</TargetFrameworks>
+    <PackageId>LwXLab.Data</PackageId>
+    <Description>Provider-neutral contracts and utilities for LwXLab.Data database integrations.</Description>
+    <PackageTags>database;data;ado.net;multi-database;dotnet</PackageTags>
+    <PackageReleaseNotes>Initial preview: provider-neutral connection factory contracts, provider names, and safe database identifier validation.</PackageReleaseNotes>
+  </PropertyGroup>
+</Project>

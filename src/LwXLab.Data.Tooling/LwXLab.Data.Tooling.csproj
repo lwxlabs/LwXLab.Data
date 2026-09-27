@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <PackageId>LwXLab.Data.Tooling</PackageId>
+    <Description>Reusable report formatting and command models for LwXLab.Data command-line tooling.</Description>
+    <PackageTags>database;tooling;doctor;cli</PackageTags>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../LwXLab.Data/LwXLab.Data.csproj" />
+  </ItemGroup>
+</Project>

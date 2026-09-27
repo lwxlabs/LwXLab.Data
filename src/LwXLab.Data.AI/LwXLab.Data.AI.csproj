@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <PackageId>LwXLab.Data.AI</PackageId>
+    <Description>AI-safe schema context, manifests, migration review payloads and query-analysis payloads for LwXLab.Data. No LLM provider dependency.</Description>
+    <PackageTags>ai;agents;efcore;schema;database;developer-tools</PackageTags>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../LwXLab.Data.Diagnostics/LwXLab.Data.Diagnostics.csproj" />
+  </ItemGroup>
+</Project>

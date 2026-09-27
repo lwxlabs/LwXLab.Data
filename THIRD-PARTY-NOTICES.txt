@@ -1,0 +1,39 @@
+THIRD-PARTY NOTICES
+
+This project references third-party dependencies through NuGet. Their licenses remain the property of their respective copyright holders.
+
+Npgsql and Npgsql.EntityFrameworkCore.PostgreSQL
+- Project: https://www.npgsql.org/
+- License: PostgreSQL License
+
+Microsoft.EntityFrameworkCore, Microsoft.EntityFrameworkCore.SqlServer,
+Microsoft.EntityFrameworkCore.Sqlite, Microsoft.Data.SqlClient, Microsoft.Data.Sqlite,
+Microsoft.Extensions.* and related .NET dependencies
+- Projects: https://github.com/dotnet/efcore, https://github.com/dotnet/SqlClient
+- License: MIT (see each package/project for exact terms)
+
+MySql.Data and MySql.EntityFrameworkCore (Oracle MySQL Connector/NET)
+- Project: https://dev.mysql.com/downloads/connector/net/
+- License: see the NuGet packages and Oracle/MySQL Connector/NET license terms
+
+MySqlConnector
+- Project: https://mysqlconnector.net/
+- License: MIT
+
+Pomelo.EntityFrameworkCore.MySql
+- Project: https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql
+- License: MIT
+
+Oracle.ManagedDataAccess.Core and Oracle.EntityFrameworkCore
+- Project: https://www.oracle.com/database/technologies/appdev/dotnet.html
+- License: see the Oracle NuGet packages and Oracle license terms
+
+Microsoft.SourceLink.GitHub
+- Project: https://github.com/dotnet/sourcelink
+- License: MIT
+
+Test-only dependencies are not runtime dependencies of the published packages.
+
+Optional package dependencies added in preview.3:
+- OpenTelemetry / OpenTelemetry.Extensions.Hosting (Apache-2.0)
+- Microsoft.Extensions.* / ASP.NET Core shared framework (MIT)

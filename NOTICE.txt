@@ -1,0 +1,9 @@
+LwXLab.Data — modular .NET data-access infrastructure toolkit
+Copyright (c) 2025-2026 lwxlabs
+https://github.com/lwxlabs/LwXLab.Data
+
+Licensed under the Apache License, Version 2.0. See LICENSE.txt.
+
+LwXLab.Data packages have third-party package dependencies governed by separate licenses.
+Those licenses are not replaced or restricted by the LwXLab.Data license. See
+THIRD-PARTY-NOTICES.txt.

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <PackageId>LwXLab.Data.AspNetCore</PackageId>
+    <Description>Optional ASP.NET Core health endpoints and per-request query-budget middleware for LwXLab.Data.</Description>
+    <PackageTags>aspnetcore;database;healthchecks;query-budget;efcore</PackageTags>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../LwXLab.Data.Diagnostics/LwXLab.Data.Diagnostics.csproj" />
+  </ItemGroup>
+  <ItemGroup><FrameworkReference Include="Microsoft.AspNetCore.App" /></ItemGroup>
+</Project>

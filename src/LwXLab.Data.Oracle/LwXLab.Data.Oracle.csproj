@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.1;net8.0;net9.0;net10.0</TargetFrameworks>
+    <PackageId>LwXLab.Data.Oracle</PackageId>
+    <Description>Oracle Database ODP.NET connection and Entity Framework Core helpers for LwXLab.Data.</Description>
+    <PackageTags>oracle;odpnet;efcore;database;ado.net</PackageTags>
+    <PackageReleaseNotes>Adds Oracle Managed Data Access connection factory, pooling normalization, and schema-aware EF Core registration. netstandard2.0 is not available because the current ODP.NET Core driver starts at netstandard2.1.</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../LwXLab.Data/LwXLab.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0' Or '$(TargetFramework)' == 'net9.0' Or '$(TargetFramework)' == 'net10.0'">
+    <ProjectReference Include="../LwXLab.Data.EntityFrameworkCore/LwXLab.Data.EntityFrameworkCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.26.301" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+    <PackageReference Include="Oracle.EntityFrameworkCore" Version="8.23.26301" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
+    <PackageReference Include="Oracle.EntityFrameworkCore" Version="9.23.26301" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+    <PackageReference Include="Oracle.EntityFrameworkCore" Version="10.23.26301" />
+  </ItemGroup>
+</Project>
