@@ -91,6 +91,7 @@ internal sealed class LwXDataDiagnosticsService : ILwXDataDiagnostics
                     {
                         var model = DatabaseDriftDetector.FromEfModel(context, descriptor.Schema);
                         var live = await DatabaseDriftDetector.FromDatabaseAsync(connection, descriptor.ProviderName, descriptor.Schema, cancellationToken).ConfigureAwait(false);
+                        live = DatabaseDriftDetector.ExcludeTable(live, descriptor.Schema, descriptor.MigrationsHistoryTable);
                         var diff = DatabaseDriftDetector.Diff(model, live);
                         report.Checks.Add(new DatabaseCheckResult("drift", diff.Count == 0 ? DatabaseCheckStatus.Passed : DatabaseCheckStatus.Warning,
                             diff.Count == 0 ? "EF model and live schema fingerprints match." : diff.Count + " schema difference(s) detected."));

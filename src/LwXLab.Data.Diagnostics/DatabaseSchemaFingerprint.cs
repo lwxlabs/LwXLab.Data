@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Data;
 using System.Data.Common;
 using System.Security.Cryptography;
@@ -26,6 +27,18 @@ public sealed class DatabaseSchemaFingerprint
 
 public static class DatabaseDriftDetector
 {
+    internal static DatabaseSchemaFingerprint ExcludeTable(DatabaseSchemaFingerprint fingerprint, string? schema, string table)
+    {
+        var prefix = schema == null ? table + "." : schema + "." + table + ".";
+        var entries = fingerprint.Entries.Where(entry =>
+        {
+            // Schema-free providers can still return a catalog name in metadata.
+            var candidate = schema == null ? entry.Substring(entry.IndexOf('.') + 1) : entry;
+            return !candidate.StartsWith(prefix, StringComparison.OrdinalIgnoreCase);
+        }).ToList();
+        return new DatabaseSchemaFingerprint(fingerprint.Source, Hash(entries), entries);
+    }
+
     public static DatabaseSchemaFingerprint FromEfModel(DbContext context, string? schema)
     {
         if (context == null) throw new ArgumentNullException(nameof(context));

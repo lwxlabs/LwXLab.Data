@@ -16,6 +16,21 @@ namespace LwXLab.Data.Tests;
 public sealed class FeatureBehaviorTests
 {
     [Fact]
+    public async Task DriftDiagnostics_IgnoreConfiguredMigrationHistoryTable()
+    {
+        var services = new ServiceCollection();
+        services.AddLwXDbContext<IntegrationSurfaceTests.ModelContext>(b => b.UseSqlite("Data Source=drift-history;Mode=Memory;Cache=Shared").UseMigrationsHistoryTable("AppHistory"));
+        services.AddLwXDataDiagnostics(o => { o.CheckMigrations = false; o.CheckDrift = true; });
+        using var provider = services.BuildServiceProvider();
+        using var scope = provider.CreateScope();
+        var context = scope.ServiceProvider.GetRequiredService<IntegrationSurfaceTests.ModelContext>();
+        await context.Database.OpenConnectionAsync();
+        await context.Database.EnsureCreatedAsync();
+        await context.Database.ExecuteSqlRawAsync("CREATE TABLE AppHistory (MigrationId TEXT, ProductVersion TEXT)");
+        var report = Assert.Single(await provider.GetRequiredService<ILwXDataDiagnostics>().RunAsync());
+        Assert.Equal(DatabaseCheckStatus.Passed, report.Checks.Single(c => c.Check == "drift").Status);
+    }
+    [Fact]
     public async Task PendingDestructiveMigration_IsClassifiedAndBlockedInProduction()
     {
         await using var context = new MigrationContext(new DbContextOptionsBuilder<MigrationContext>().UseSqlite("Data Source=:memory:").Options);

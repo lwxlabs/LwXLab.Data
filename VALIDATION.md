@@ -5,7 +5,7 @@ Verified on Windows on 2026-09-27 using .NET SDK 10.0.401.
 ## Automated verification
 
 - Release restore and solution build (also checked with warnings treated as errors: zero warnings/errors) pass across every advertised target framework, including the sample and CLI.
-- 45 tests pass on each of net8.0, net9.0 and net10.0 (135 executions, no skips).
+- 46 tests pass on each of net8.0, net9.0 and net10.0 (138 executions, no skips).
 - Tests cover provider connection normalization and registration, SQLite CRUD, factory registration, connectivity diagnostics, schema drift, contracts and connection ownership, query budget observation/throwing and nesting, explicit production command/delete guards, pending destructive migration classification/blocking, startup None/Validate/Strict modes, health-status mapping, OpenTelemetry registration, AI metadata/seed/manifest output, and secret redaction including malformed quoted strings.
 - All 16 NuGet packages contain expected framework assemblies and README/license/notice/security/repository metadata.
 - Clean consumers restore from the produced packages with an isolated package cache and independent build properties. .NET Standard 2.0/2.1 consumers compile; .NET 8/9/10 consumers execute SQLite CRUD and metadata checks.
@@ -19,7 +19,9 @@ Reproduce the build/test/package/consumer/CLI checks with `./build/pack.ps1` or 
 
 ## Remaining release verification
 
-Live PostgreSQL, hosted Supabase/pooler, CockroachDB, SQL Server, MySQL, MariaDB and Oracle integration checks require disposable test endpoints. None were supplied for this preparation pass, so live connectivity, provider-specific migration execution, permissions, SQL dialect behavior and hosted pooler behavior are **not verified**. Registration and connection-string tests are not substitutes for these checks.
+Hosted Supabase verification passed through the real .NET library on .NET 8/9/10: schema-local migrations and migration history, CRUD, second-app schema separation, schema permissions, diagnostics, drift detection (including the migration-history regression fix), database contracts, query budgets, metadata-only AI context, and session/transaction pooler queries. The live CLI doctor/connection/schema/permissions/migrations/fingerprint/manifest checks also passed. Temporary test schemas, login and connector migration records were removed and cleanup was verified. The new free project was retained; the existing paused project was untouched. Reproduce with `tests/LwXLab.Data.LiveTests/README.md`.
+
+Standalone PostgreSQL, CockroachDB, SQL Server, MySQL, MariaDB and Oracle live integration checks remain **not verified**. Supabase results do not establish the behavior of those separate services/providers.
 
 MariaDB EF support remains .NET 8/9 only; its .NET 10 package provides ADO.NET support. Linux CI is configured but has not run remotely because this repository has not been pushed.
 

@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/LwXLab.Data.Supabase/LwXLab.Data.Supabase.csproj" />
+    <ProjectReference Include="../../src/LwXLab.Data.Diagnostics/LwXLab.Data.Diagnostics.csproj" />
+    <ProjectReference Include="../../src/LwXLab.Data.AI/LwXLab.Data.AI.csproj" />
+  </ItemGroup>
+</Project>

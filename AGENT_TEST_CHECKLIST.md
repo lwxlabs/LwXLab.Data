@@ -10,6 +10,7 @@ Verified automated results and explicit live-provider limits are recorded in VAL
 - [x] `build/Test-Packages.ps1` verifies README/license/notice/security metadata, repository URL and expected framework assemblies in every NuGet package.
 
 ## Provider smoke tests
+- [x] Hosted Supabase verification through .NET on net8.0/net9.0/net10.0, including EF migrations and session/transaction poolers. Reproduction: `tests/LwXLab.Data.LiveTests/README.md`.
 - [ ] PostgreSQL registration + migration history schema.
 - [ ] Supabase registration + transaction-pooler auto-prepare protection.
 - [ ] SQL Server registration + schema.

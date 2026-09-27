@@ -8,9 +8,11 @@ Install only the provider you need and register your `DbContext`.
 
 ```csharp
 builder.Services.AddSupabaseDbContext<TorserDbContext>(
-    builder.Configuration.GetConnectionString("Torser")!,
+    builder.Configuration.GetConnectionString("SharedData")!,
     schema: "torser");
 ```
+
+`SharedData` is the logical connection name for a shared Supabase project. Use a separate schema and database role for each application/service; schema mapping alone does not enforce permissions. Store each app's password in its secret store or `ConnectionStrings__SharedData` environment variable. The sample uses the session pooler (port 5432) for persistent servers on IPv4 networks. Use the transaction pooler (6543) for short-lived workloads; the Supabase provider disables automatic preparation there. Migrations should run through the direct endpoint where reachable, or the session pooler for IPv4-only networks.
 
 ## SQL Server
 

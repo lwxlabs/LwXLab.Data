@@ -2,6 +2,8 @@
 
 ## 0.1.0-preview.3
 
+- Verified Supabase against a hosted PostgreSQL database on .NET 8/9/10, including both shared pooler modes; added a reproducible opt-in live verification harness.
+- Fixed false-positive drift warnings caused by the configured EF migration-history table. Standardized the shared-project example connection name as `SharedData`.
 - Verified Release builds and behavior tests on .NET 8/9/10; added isolated packaged-consumer and installed CLI checks.
 - Fixed EF relational dependencies, logging dependency downgrades, diagnostics/health-check logging registration, test compilation, PowerShell pack argument binding, tool-package validation, and the `dotnet lwx-data` command name.
 - Redact malformed connection strings entirely to prevent quoted secret fragments leaking; include README-linked guides in packages.

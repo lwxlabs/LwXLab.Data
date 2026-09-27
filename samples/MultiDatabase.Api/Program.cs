@@ -5,8 +5,8 @@ using MultiDatabase.Api.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var supabase = builder.Configuration.GetConnectionString("Supabase")
-    ?? throw new InvalidOperationException("ConnectionStrings:Supabase is required.");
+var supabase = builder.Configuration.GetConnectionString("SharedData")
+    ?? throw new InvalidOperationException("ConnectionStrings:SharedData is required.");
 var internalSqlServer = builder.Configuration.GetConnectionString("InternalSqlServer")
     ?? throw new InvalidOperationException("ConnectionStrings:InternalSqlServer is required.");
 
