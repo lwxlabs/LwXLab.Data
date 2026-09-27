@@ -119,6 +119,14 @@ public static class DatabaseDriftDetector
             return "SELECT OWNER, TABLE_NAME, COLUMN_NAME, DATA_TYPE FROM ALL_TAB_COLUMNS WHERE OWNER = " + owner + " ORDER BY TABLE_NAME, COLUMN_ID";
         }
 
+        if (normalized.IndexOf("MySql", StringComparison.OrdinalIgnoreCase) >= 0
+            || normalized.IndexOf("MariaDb", StringComparison.OrdinalIgnoreCase) >= 0)
+            return "SELECT '' AS table_schema, table_name, column_name, "
+                + "CASE WHEN data_type IN ('tinyint','smallint','mediumint','int','bigint') AND column_type NOT LIKE '%zerofill%' "
+                + "THEN CASE WHEN column_type LIKE '% unsigned' THEN CONCAT(data_type, ' unsigned') ELSE data_type END "
+                + "ELSE column_type END AS column_type FROM information_schema.columns "
+                + "WHERE table_schema = DATABASE() ORDER BY table_name, ordinal_position";
+
         var condition = string.IsNullOrWhiteSpace(schema) ? string.Empty : " AND table_schema = '" + Escape(schema!) + "'";
         if (normalized.IndexOf("SqlServer", StringComparison.OrdinalIgnoreCase) >= 0
             || normalized.Equals("mssql", StringComparison.OrdinalIgnoreCase))

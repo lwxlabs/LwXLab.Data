@@ -23,8 +23,12 @@ Hosted Supabase verification passed through the real .NET library on .NET 8/9/10
 
 Local SQL Server Express 2022 (16.0.1200.5) verification passed with Windows authentication on .NET 8/9/10: migrations and schema-local history, CRUD, schema separation/permissions, diagnostics, drift (including text-length and decimal-precision changes), contracts, budgets and metadata-only AI output. Local CLI doctor/schema/permissions/migrations/fingerprint/manifest checks passed. The explicit development certificate-trust option was tested, and the default CLI correctly rejected the untrusted certificate. Both generated test databases were removed and absence verified; the installed server and existing application databases were left intact. Reproduce using `build/Test-LocalSqlServer.ps1 -TrustServerCertificate`.
 
-Standalone PostgreSQL, CockroachDB, MySQL, MariaDB and Oracle live integration checks remain **not verified**. Supabase results do not establish the behavior of those separate services/providers.
+Standalone PostgreSQL, CockroachDB and Oracle live integration checks remain **not verified**. Supabase results do not establish the behavior of those separate services/providers.
 
-MariaDB EF support remains .NET 8/9 only; its .NET 10 package provides ADO.NET support. Linux CI is configured but has not run remotely because this repository has not been pushed.
+MariaDB EF support remains .NET 8/9 only; its .NET 10 package provides ADO.NET support. Linux CI is configured; its remote result has not been checked in this validation pass.
 
-The source can be uploaded for review, but do not describe all providers/features as integration-tested or publish NuGet packages until the applicable live checks in AGENT_TEST_CHECKLIST.md pass. No Git or NuGet push was performed.
+Do not describe all providers/features as integration-tested or publish NuGet packages until the applicable live checks in AGENT_TEST_CHECKLIST.md pass. The earlier source commits were pushed to GitHub; the changes in this validation pass remain local.
+
+## Additional live provider verification
+
+`./build/Test-LocalProviders.ps1` exercises disposable local SQLite, MySQL 8.4 and MariaDB 10.11 databases. SQLite and MySQL passed provider factory, migrations and rollback, CRUD, diagnostics, drift, contracts, budgets and AI metadata on .NET 8/9/10. MariaDB passed the same EF Core checks on .NET 8/9 and ADO.NET CRUD on .NET 10; EF Core registration is not supplied for MariaDB on .NET 10. The script removes only its generated files and Docker containers. Details: `tests/LwXLab.Data.LiveTests/README.md`.

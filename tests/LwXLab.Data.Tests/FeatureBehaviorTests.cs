@@ -27,6 +27,7 @@ public sealed class FeatureBehaviorTests
         await context.Database.OpenConnectionAsync();
         await context.Database.EnsureCreatedAsync();
         await context.Database.ExecuteSqlRawAsync("CREATE TABLE AppHistory (MigrationId TEXT, ProductVersion TEXT)");
+        await context.Database.ExecuteSqlRawAsync("CREATE TABLE __EFMigrationsLock (Id INTEGER, Timestamp TEXT)");
         var report = Assert.Single(await provider.GetRequiredService<ILwXDataDiagnostics>().RunAsync());
         Assert.Equal(DatabaseCheckStatus.Passed, report.Checks.Single(c => c.Check == "drift").Status);
     }
