@@ -14,7 +14,7 @@ dotnet nuget add source 'https://nuget.pkg.github.com/lwxlabs/index.json' `
 Remove-Item Env:GH_PACKAGES_TOKEN
 ```
 
-On Windows, NuGet encrypts the saved source password for the current user when `--store-password-in-clear-text` is omitted. Keep nuget.org enabled for public dependencies. In an application project, install only the provider and helpers you need, for example:
+On Windows, NuGet encrypts the saved source password for the current user when `--store-password-in-clear-text` is omitted. Keep nuget.org enabled for public dependencies. If an application has its own `NuGet.Config` with `<clear />`, add the authenticated GitHub source there as well; that setting overrides user-level sources. In an application project, install only the provider and helpers you need, for example:
 
 ```powershell
 dotnet add package LwXLab.Data.Sqlite --version 0.1.0-preview.3
