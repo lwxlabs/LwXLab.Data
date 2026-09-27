@@ -43,7 +43,7 @@ public static class AiQueryAnalysis
             ExecutionPlan = executionPlan,
             DurationMilliseconds = duration?.TotalMilliseconds,
             KnownIndexes = knownIndexes == null ? new List<string>() : knownIndexes.ToList(),
-            DeterministicHints = Analyze(sql, executionPlan, duration)
+            DeterministicHints = Analyze(sql ?? string.Empty, executionPlan, duration)
         };
 
     private static List<string> Analyze(string sql, string? executionPlan, TimeSpan? duration)

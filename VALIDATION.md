@@ -4,7 +4,7 @@ Verified on Windows on 2026-09-27 using .NET SDK 10.0.401.
 
 ## Automated verification
 
-- Release restore and solution build pass across every advertised target framework, including the sample and CLI.
+- Release restore and solution build (also checked with warnings treated as errors: zero warnings/errors) pass across every advertised target framework, including the sample and CLI.
 - 45 tests pass on each of net8.0, net9.0 and net10.0 (135 executions, no skips).
 - Tests cover provider connection normalization and registration, SQLite CRUD, factory registration, connectivity diagnostics, schema drift, contracts and connection ownership, query budget observation/throwing and nesting, explicit production command/delete guards, pending destructive migration classification/blocking, startup None/Validate/Strict modes, health-status mapping, OpenTelemetry registration, AI metadata/seed/manifest output, and secret redaction including malformed quoted strings.
 - All 16 NuGet packages contain expected framework assemblies and README/license/notice/security/repository metadata.

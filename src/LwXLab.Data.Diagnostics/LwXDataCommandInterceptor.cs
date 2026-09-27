@@ -45,10 +45,10 @@ internal sealed class LwXDataCommandInterceptor : DbCommandInterceptor
     { After(command, eventData.Duration); return result; }
     public override ValueTask<int> NonQueryExecutedAsync(DbCommand command, CommandExecutedEventData eventData, int result, CancellationToken cancellationToken = default)
     { After(command, eventData.Duration); return new ValueTask<int>(result); }
-    public override object ScalarExecuted(DbCommand command, CommandExecutedEventData eventData, object result)
+    public override object? ScalarExecuted(DbCommand command, CommandExecutedEventData eventData, object? result)
     { After(command, eventData.Duration); return result; }
-    public override ValueTask<object> ScalarExecutedAsync(DbCommand command, CommandExecutedEventData eventData, object result, CancellationToken cancellationToken = default)
-    { After(command, eventData.Duration); return new ValueTask<object>(result); }
+    public override ValueTask<object?> ScalarExecutedAsync(DbCommand command, CommandExecutedEventData eventData, object? result, CancellationToken cancellationToken = default)
+    { After(command, eventData.Duration); return new ValueTask<object?>(result); }
 
     public override InterceptionResult DataReaderDisposing(DbCommand command, DataReaderDisposingEventData eventData, InterceptionResult result)
     {

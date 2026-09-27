@@ -78,7 +78,7 @@ public static class ConnectionIntelligence
         if (string.Equals(ssl, "Disable", StringComparison.OrdinalIgnoreCase))
             result.Add(new DatabaseConnectionAdvice("postgres.ssl.disabled", DatabaseAdviceSeverity.Warning, "PostgreSQL SSL is disabled."));
 
-        if (!string.IsNullOrEmpty(host) && host.IndexOf("pooler.supabase.com", StringComparison.OrdinalIgnoreCase) >= 0)
+        if (host != null && host.IndexOf("pooler.supabase.com", StringComparison.OrdinalIgnoreCase) >= 0)
         {
             if (port == "6543")
                 result.Add(new DatabaseConnectionAdvice("supabase.pooler.transaction", DatabaseAdviceSeverity.Info, "Supabase transaction pooler detected; suitable for short-lived/serverless runtime traffic. Avoid session-dependent features and prepared statements."));

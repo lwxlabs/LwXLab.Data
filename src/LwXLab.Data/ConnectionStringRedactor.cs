@@ -31,7 +31,7 @@ public static class ConnectionStringRedactor
                     builder[key] = "********";
             }
 
-            return builder.ConnectionString;
+            return builder.ConnectionString ?? string.Empty;
         }
         catch (ArgumentException)
         {
