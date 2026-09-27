@@ -41,6 +41,10 @@ jobs:
             --configfile "$consumer/NuGet.Config" \
             "https://nuget.pkg.github.com/lwxlabs/index.json"
           cd "$consumer"
+          dotnet package search LwXLab.Data.Sqlite \
+            --source "https://nuget.pkg.github.com/lwxlabs/index.json" \
+            --configfile "$consumer/NuGet.Config" \
+            --exact-match --prerelease
           dotnet add package LwXLab.Data.Sqlite --version 0.1.0-preview.3
           printf '%s\n' 'Console.WriteLine(LwXLab.Data.DatabaseIdentifier.Validate("PrivateFeed"));' > "$consumer/Program.cs"
           dotnet run --configuration Release

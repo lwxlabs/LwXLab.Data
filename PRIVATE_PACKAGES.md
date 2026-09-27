@@ -4,18 +4,35 @@ The `0.1.0-preview.3` packages are published to the `lwxlabs` GitHub NuGet feed 
 
 Feed: `https://nuget.pkg.github.com/lwxlabs/index.json`
 
-For a Windows development PC, create a GitHub personal access token **(classic)** with `read:packages` and access to these private packages. Then add a user-level source in PowerShell (use your own GitHub username):
+For this Windows PC, create a GitHub personal access token **(classic)** with `read:packages` and access to these private packages. The user-level NuGet config already contains a source named `GitHub` at this feed, but its current credential returns HTTP 401. Update that source from PowerShell (the prompt hides the token):
 
 ```powershell
-$env:GH_PACKAGES_TOKEN = Read-Host 'GitHub classic PAT (read:packages)'
-dotnet nuget add source 'https://nuget.pkg.github.com/lwxlabs/index.json' `
-  --name lwxlabs-github --username YOUR_GITHUB_USERNAME `
-  --password $env:GH_PACKAGES_TOKEN `
-  --configfile "$env:APPDATA\NuGet\NuGet.Config"
-Remove-Item Env:GH_PACKAGES_TOKEN
+$nugetConfig = Join-Path $env:APPDATA 'NuGet\NuGet.Config'
+$secureToken = Read-Host 'GitHub classic PAT (read:packages)' -AsSecureString
+$token = [System.Net.NetworkCredential]::new('', $secureToken).Password
+try {
+  dotnet nuget update source GitHub `
+    --source 'https://nuget.pkg.github.com/lwxlabs/index.json' `
+    --username lwxlabs --password $token --configfile $nugetConfig
+  if ($LASTEXITCODE -ne 0) { throw 'Could not update the GitHub source.' }
+} finally {
+  $token = $null
+  $secureToken.Dispose()
+}
 ```
 
-On Windows, NuGet encrypts the saved source password for the current user when `--store-password-in-clear-text` is omitted. Keep nuget.org enabled for public dependencies. If an application has its own `NuGet.Config` with `<clear />`, add the authenticated GitHub source there as well; that setting overrides user-level sources. In an application project, install only the provider and helpers you need, for example:
+On a different Windows PC without this source, use `dotnet nuget add source` with `--name GitHub` instead of `update source GitHub`; keep the other arguments. On Windows, NuGet encrypts the saved source password for the current user when `--store-password-in-clear-text` is omitted.
+
+Confirm the source is configured and search with prereleases included:
+
+```powershell
+dotnet nuget list source --configfile $nugetConfig
+dotnet package search LwXLab.Data.Sqlite --exact-match --prerelease `
+  --source 'https://nuget.pkg.github.com/lwxlabs/index.json' `
+  --configfile $nugetConfig
+```
+
+Keep nuget.org enabled for public dependencies. If an application has its own `NuGet.Config` with `<clear />`, add the authenticated GitHub source there as well; that setting overrides user-level sources. In an application project, install only the provider and helpers you need, for example:
 
 ```powershell
 dotnet add package LwXLab.Data.Sqlite --version 0.1.0-preview.3
