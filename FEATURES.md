@@ -41,6 +41,8 @@ dotnet lwx-data redact --connection "..."
 
 Prefer `LWX_DATA_CONNECTION` or another secret store instead of putting a password in shell history.
 
+For a local SQL Server development instance with an untrusted certificate, explicitly pass `--trust-server-certificate` to the CLI. Certificate validation remains enabled by default. This changes only the CLI connection, not the server configuration.
+
 ## 3. Migration safety
 
 ```csharp

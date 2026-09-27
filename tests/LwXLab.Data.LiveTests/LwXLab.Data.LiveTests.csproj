@@ -7,6 +7,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../../src/LwXLab.Data.Supabase/LwXLab.Data.Supabase.csproj" />
+    <ProjectReference Include="../../src/LwXLab.Data.SqlServer/LwXLab.Data.SqlServer.csproj" />
     <ProjectReference Include="../../src/LwXLab.Data.Diagnostics/LwXLab.Data.Diagnostics.csproj" />
     <ProjectReference Include="../../src/LwXLab.Data.AI/LwXLab.Data.AI.csproj" />
   </ItemGroup>

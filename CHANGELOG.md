@@ -2,6 +2,9 @@
 
 ## 0.1.0-preview.3
 
+- Verified local SQL Server Express on .NET 8/9/10 and added a Windows-authenticated test script with guaranteed temporary-database cleanup.
+- Preserved SQL Server text/binary lengths and decimal precision/scale in live schema fingerprints to avoid false drift reports while detecting actual facet changes.
+- Added the CLI's explicit `--trust-server-certificate` development option; certificate validation stays enabled by default.
 - Verified Supabase against a hosted PostgreSQL database on .NET 8/9/10, including both shared pooler modes; added a reproducible opt-in live verification harness.
 - Fixed false-positive drift warnings caused by the configured EF migration-history table. Standardized the shared-project example connection name as `SharedData`.
 - Verified Release builds and behavior tests on .NET 8/9/10; added isolated packaged-consumer and installed CLI checks.

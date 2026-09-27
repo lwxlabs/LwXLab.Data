@@ -46,7 +46,8 @@ if (command == "connection")
     return 0;
 }
 
-await using var connection = CreateConnection(provider, connectionString);
+var trustServerCertificate = string.Equals(Get(options, "trust-server-certificate"), "true", StringComparison.OrdinalIgnoreCase);
+await using var connection = CreateConnection(provider, connectionString, trustServerCertificate);
 try
 {
     await connection.OpenAsync();
@@ -133,14 +134,14 @@ Console.Error.WriteLine("Unknown command: " + command);
 Help();
 return 2;
 
-static DbConnection CreateConnection(string provider, string connection)
+static DbConnection CreateConnection(string provider, string connection, bool trustServerCertificate)
 {
     switch (provider.ToLowerInvariant())
     {
         case "postgres": case "postgresql": return new PostgreSqlConnectionFactory(new PostgreSqlDatabaseOptions(connection)).CreateConnection();
         case "supabase": return new SupabaseConnectionFactory(new SupabaseDatabaseOptions(connection)).CreateConnection();
         case "cockroach": case "cockroachdb": return new CockroachDbConnectionFactory(new CockroachDbDatabaseOptions(connection)).CreateConnection();
-        case "sqlserver": case "mssql": return new SqlServerConnectionFactory(new SqlServerDatabaseOptions(connection)).CreateConnection();
+        case "sqlserver": case "mssql": return new SqlServerConnectionFactory(new SqlServerDatabaseOptions(connection) { TrustServerCertificate = trustServerCertificate }).CreateConnection();
         case "sqlite": return new SqliteConnectionFactory(new SqliteDatabaseOptions(connection)).CreateConnection();
         case "mysql": return new MySqlConnectionFactory(new MySqlDatabaseOptions(connection)).CreateConnection();
         case "mariadb": return new MariaDbConnectionFactory(new MariaDbDatabaseOptions(connection)).CreateConnection();
@@ -192,4 +193,5 @@ static void Help()
 {
     Console.WriteLine("dotnet lwx-data <doctor|connection|schema|permissions|migrations|fingerprint|diff|manifest|redact> --provider <provider> --connection <connection> [--schema <schema>]");
     Console.WriteLine("The connection may also be supplied through LWX_DATA_CONNECTION to avoid shell history.");
+    Console.WriteLine("SQL Server development instances with self-signed certificates can explicitly use --trust-server-certificate. Certificate validation remains enabled by default.");
 }

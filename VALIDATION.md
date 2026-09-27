@@ -21,7 +21,9 @@ Reproduce the build/test/package/consumer/CLI checks with `./build/pack.ps1` or 
 
 Hosted Supabase verification passed through the real .NET library on .NET 8/9/10: schema-local migrations and migration history, CRUD, second-app schema separation, schema permissions, diagnostics, drift detection (including the migration-history regression fix), database contracts, query budgets, metadata-only AI context, and session/transaction pooler queries. The live CLI doctor/connection/schema/permissions/migrations/fingerprint/manifest checks also passed. Temporary test schemas, login and connector migration records were removed and cleanup was verified. The new free project was retained; the existing paused project was untouched. Reproduce with `tests/LwXLab.Data.LiveTests/README.md`.
 
-Standalone PostgreSQL, CockroachDB, SQL Server, MySQL, MariaDB and Oracle live integration checks remain **not verified**. Supabase results do not establish the behavior of those separate services/providers.
+Local SQL Server Express 2022 (16.0.1200.5) verification passed with Windows authentication on .NET 8/9/10: migrations and schema-local history, CRUD, schema separation/permissions, diagnostics, drift (including text-length and decimal-precision changes), contracts, budgets and metadata-only AI output. Local CLI doctor/schema/permissions/migrations/fingerprint/manifest checks passed. The explicit development certificate-trust option was tested, and the default CLI correctly rejected the untrusted certificate. Both generated test databases were removed and absence verified; the installed server and existing application databases were left intact. Reproduce using `build/Test-LocalSqlServer.ps1 -TrustServerCertificate`.
+
+Standalone PostgreSQL, CockroachDB, MySQL, MariaDB and Oracle live integration checks remain **not verified**. Supabase results do not establish the behavior of those separate services/providers.
 
 MariaDB EF support remains .NET 8/9 only; its .NET 10 package provides ADO.NET support. Linux CI is configured but has not run remotely because this repository has not been pushed.
 

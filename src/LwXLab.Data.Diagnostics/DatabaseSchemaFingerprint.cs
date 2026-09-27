@@ -120,6 +120,16 @@ public static class DatabaseDriftDetector
         }
 
         var condition = string.IsNullOrWhiteSpace(schema) ? string.Empty : " AND table_schema = '" + Escape(schema!) + "'";
+        if (normalized.IndexOf("SqlServer", StringComparison.OrdinalIgnoreCase) >= 0
+            || normalized.Equals("mssql", StringComparison.OrdinalIgnoreCase))
+        {
+            // Match EF's SQL Server store types while preserving meaningful facets.
+            var type = "CASE WHEN data_type IN ('varchar','nvarchar','char','nchar','binary','varbinary') "
+                + "THEN data_type + '(' + CASE WHEN character_maximum_length = -1 THEN 'max' ELSE CONVERT(varchar(10), character_maximum_length) END + ')' "
+                + "WHEN data_type IN ('decimal','numeric') THEN data_type + '(' + CONVERT(varchar(10), numeric_precision) + ',' + CONVERT(varchar(10), numeric_scale) + ')' "
+                + "ELSE data_type END";
+            return "SELECT table_schema, table_name, column_name, " + type + " AS data_type FROM information_schema.columns WHERE 1=1" + condition + " ORDER BY table_schema, table_name, ordinal_position";
+        }
         return "SELECT table_schema, table_name, column_name, data_type FROM information_schema.columns WHERE 1=1" + condition + " ORDER BY table_schema, table_name, ordinal_position";
     }
 
