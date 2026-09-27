@@ -1,10 +1,10 @@
 # Private preview packages
 
-The `0.1.0-preview.3` packages are published to the `lwxlabs` GitHub NuGet feed by the manually dispatched `publish-private-packages` workflow. They are preview packages for private use while live checks for standalone PostgreSQL, CockroachDB and Oracle remain outstanding. GitHub defaults newly published NuGet packages to private and links them to this repository through `RepositoryUrl` metadata; check package visibility in the `lwxlabs` organization after publishing.
+The `0.1.0-preview.3` packages are published to the `lwxlabs` GitHub NuGet feed by the manually dispatched `publish-private-packages` workflow. They are preview packages for private use while live checks for standalone PostgreSQL, CockroachDB and Oracle remain outstanding. All 16 packages were confirmed Private and linked to this private repository on the `lwxlabs` account's Packages page.
 
 Feed: `https://nuget.pkg.github.com/lwxlabs/index.json`
 
-For a Windows development PC, create a GitHub personal access token **(classic)** with `read:packages` and access to the private organization packages. Then add a user-level source in PowerShell (use your own GitHub username):
+For a Windows development PC, create a GitHub personal access token **(classic)** with `read:packages` and access to these private packages. Then add a user-level source in PowerShell (use your own GitHub username):
 
 ```powershell
 $env:GH_PACKAGES_TOKEN = Read-Host 'GitHub classic PAT (read:packages)'
