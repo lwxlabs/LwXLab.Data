@@ -31,11 +31,11 @@ The repository contains a packable .NET tool:
 dotnet lwx-data doctor --provider supabase --connection $env:SUPABASE_DB
 dotnet lwx-data connection --provider postgresql --connection $env:DB
 dotnet lwx-data schema --provider sqlserver --connection $env:DB --schema internal
-dotnet lwx-data permissions --provider postgresql --connection $env:DB --schema torser
-dotnet lwx-data migrations --provider postgresql --connection $env:DB --schema torser
-dotnet lwx-data fingerprint --provider postgresql --connection $env:DB --schema torser
-dotnet lwx-data diff --provider postgresql --connection $env:DB --schema torser --expected expected-schema.txt
-dotnet lwx-data manifest --provider postgresql --connection $env:DB --schema torser
+dotnet lwx-data permissions --provider postgresql --connection $env:DB --schema catalog
+dotnet lwx-data migrations --provider postgresql --connection $env:DB --schema catalog
+dotnet lwx-data fingerprint --provider postgresql --connection $env:DB --schema catalog
+dotnet lwx-data diff --provider postgresql --connection $env:DB --schema catalog --expected expected-schema.txt
+dotnet lwx-data manifest --provider postgresql --connection $env:DB --schema catalog
 dotnet lwx-data redact --connection "..."
 ```
 
@@ -142,8 +142,8 @@ Install `LwXLab.Data.AI`. It has no OpenAI, Anthropic, or other LLM dependency a
 ```csharp
 var contract = new DatabaseContract()
     .RequireMinimumServerVersion(new Version(16, 0))
-    .RequireTable("Releases", "torser")
-    .RequireColumn("Releases", "Version", "torser")
+    .RequireTable("Releases", "catalog")
+    .RequireColumn("Releases", "Version", "catalog")
     .RequireExtension("pg_trgm");
 
 var result = await DatabaseContractValidator.ValidateAsync(db, contract);

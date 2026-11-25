@@ -4,11 +4,11 @@ using MultiDatabase.Api.Models;
 
 namespace MultiDatabase.Api.Data;
 
-public sealed class TorserDbContext : LwXDbContext<TorserDbContext>
+public sealed class CatalogDbContext : LwXDbContext<CatalogDbContext>
 {
-    public TorserDbContext(
-        DbContextOptions<TorserDbContext> options,
-        LwXDbContextDescriptor<TorserDbContext> descriptor)
+    public CatalogDbContext(
+        DbContextOptions<CatalogDbContext> options,
+        LwXDbContextDescriptor<CatalogDbContext> descriptor)
         : base(options, descriptor)
     {
     }

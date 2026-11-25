@@ -13,13 +13,13 @@ public sealed class RegistrationTests
         var services = new ServiceCollection();
         services.AddSupabaseDbContext<SchemaDbContext>(
             "Host=aws-0-eu-central-1.pooler.supabase.com;Port=6543;Database=postgres;Username=postgres.project;Password=secret;SSL Mode=Require",
-            "torser");
+            "catalog");
 
         using var provider = services.BuildServiceProvider();
         var descriptor = provider.GetRequiredService<LwXDbContextDescriptor<SchemaDbContext>>();
 
         Assert.Equal(DatabaseProviderNames.Supabase, descriptor.ProviderName);
-        Assert.Equal("torser", descriptor.Schema);
+        Assert.Equal("catalog", descriptor.Schema);
         Assert.Equal("__EFMigrationsHistory", descriptor.MigrationsHistoryTable);
     }
 
@@ -41,7 +41,7 @@ public sealed class RegistrationTests
     {
         var services = new ServiceCollection();
         services.AddMySqlDbContext<NoSchemaDbContext>(
-            "Server=localhost;Database=torser;User Id=user;Password=secret;SslMode=Required");
+            "Server=localhost;Database=catalog;User Id=user;Password=secret;SslMode=Required");
 
         using var provider = services.BuildServiceProvider();
         var descriptor = provider.GetRequiredService<LwXDbContextDescriptor<NoSchemaDbContext>>();
@@ -56,13 +56,13 @@ public sealed class RegistrationTests
         var services = new ServiceCollection();
         services.AddCockroachDbDbContext<SchemaDbContext>(
             "Host=localhost;Database=defaultdb;Username=root;Password=secret;SSL Mode=Require",
-            "torser");
+            "catalog");
 
         using var provider = services.BuildServiceProvider();
         var descriptor = provider.GetRequiredService<LwXDbContextDescriptor<SchemaDbContext>>();
 
         Assert.Equal(DatabaseProviderNames.CockroachDb, descriptor.ProviderName);
-        Assert.Equal("torser", descriptor.Schema);
+        Assert.Equal("catalog", descriptor.Schema);
     }
 
     private sealed class SchemaDbContext : LwXDbContext<SchemaDbContext>

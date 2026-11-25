@@ -25,7 +25,7 @@ Additional optional packages:
 ## Simple usage
 
 ```csharp
-builder.Services.AddSupabaseDbContext<TorserDbContext>(connectionString, "torser");
+builder.Services.AddSupabaseDbContext<CatalogDbContext>(connectionString, "catalog");
 builder.Services.AddSqlServerDbContext<InternalDbContext>(sqlServer, "internal");
 ```
 
@@ -44,6 +44,8 @@ Start with [BEGINNER_QUICKSTART.md](BEGINNER_QUICKSTART.md). See [FEATURES.md](F
 The provider-neutral/ADO.NET packages target the frameworks supported by their underlying database drivers, including `netstandard2.0`, `netstandard2.1`, `net8.0`, `net9.0`, and `net10.0` where available. Modern EF Core, diagnostics, ASP.NET Core, AI metadata helpers, and OpenTelemetry packages target .NET 8/9/10.
 
 ## Build and pack
+
+Requires the .NET 10 SDK. Source builds restore from NuGet.org and do not require private feed credentials.
 
 ```powershell
 .\build\pack.ps1

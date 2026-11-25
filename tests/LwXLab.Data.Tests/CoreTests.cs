@@ -7,7 +7,7 @@ namespace LwXLab.Data.Tests;
 public sealed class CoreTests
 {
     [Theory]
-    [InlineData("torser")]
+    [InlineData("catalog")]
     [InlineData("spotflow_v2")]
     [InlineData("_internal")]
     public void DatabaseIdentifier_AcceptsSafeNames(string value)

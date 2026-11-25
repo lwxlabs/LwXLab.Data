@@ -5,17 +5,17 @@ The original preview package was intentionally superseded before publishing by t
 Old:
 
 ```csharp
-builder.Services.AddSupabaseDbContext<TorserDbContext>(
+builder.Services.AddSupabaseDbContext<CatalogDbContext>(
     connectionString,
-    "torser");
+    "catalog");
 ```
 
 New convenience API:
 
 ```csharp
-builder.Services.AddSupabaseDbContext<TorserDbContext>(
+builder.Services.AddSupabaseDbContext<CatalogDbContext>(
     connectionString,
-    "torser");
+    "catalog");
 ```
 
 The calling code can remain almost identical. The implementation now comes from `LwXLab.Data.Supabase`, and the common infrastructure lives in the provider-neutral packages.
